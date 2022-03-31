@@ -29,7 +29,7 @@ const Item = () => {
                     data={data.product}
                 />
             </div>
-            <div className=''>
+            <div>
                 <GridContainer data={data.brochuresData} />
             </div>
         </div>
