@@ -1,0 +1,54 @@
+version: '3'
+services:
+  web-frontend:
+    container_name: web-frontend
+    build:
+      context: ./web-frontend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    environment:
+      WEB_API_URL: 'http://127.0.0.1:8080'
+    networks:
+      - the-amazing-brochures-grid
+
+  web-api:
+    container_name: web-api
+    build:
+      context: ./web-API
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    environment:
+      PORT: '8080'
+      WEB_CMS_URL: 'http://127.0.0.1:8055'
+    depends_on:
+      - web-cms
+    networks:
+      - the-amazing-brochures-grid
+
+  web-cms:
+    container_name: web-cms
+    image: directus/directus:latest
+    ports:
+      - '8055:8055'
+    volumes:
+      - ./web-CMS/database:/directus/database
+      - ./web-CMS/extensions:/directus/extensions
+    networks:
+      - the-amazing-brochures-grid
+    environment:
+      KEY: '7de1bc67-bbbe-410d-bf71-fab35863203d'
+      SECRET: 'gUr7MjLbQsQuHnsh4fUO4iTCz_sLoc6C'
+
+      DB_CLIENT: 'sqlite3'
+      DB_FILENAME: '/directus/database/data.db'
+
+      EXTENSIONS_PATH: '/directus/extensions'
+
+      ADMIN_EMAIL: 'admin@bonial.de'
+      ADMIN_PASSWORD: 'bonial'
+      # PUBLIC_URL: 'https://directus.bonial.de'
+
+networks:
+  the-amazing-brochures-grid:
