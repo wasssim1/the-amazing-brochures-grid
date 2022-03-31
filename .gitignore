@@ -1,0 +1,19 @@
+.DS_Store
+
+# web-API
+/web-API/node_modules
+
+# web-CMS
+/web-API/node_modules
+# /web-API/.env
+
+# web-frontend
+/web-frontend/node_modules
+/web-frontend/.next/
+/web-frontend/out/
+
+# production
+/build
+
+# History plugin
+.history
